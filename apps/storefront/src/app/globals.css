@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts ── */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap");
+
+/* ── CSS Variables ── */
+:root {
+  --color-forest: #254b5a;
+  --color-misty: #a6cbd3;
+  --color-rust: #9d5f1b;
+  --color-cream: #fdf1db;
+  --color-stone: #344e95;
+  --color-muted: #bba48d;
+  --color-snow: #ffffff;
+}
+
+/* ── Base ── */
+@layer base {
+  * {
+    @apply border-muted/30;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-cream text-forest font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight text-forest;
+  }
+
+  /* Focus ring — accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-forest ring-offset-2 ring-offset-cream;
+  }
+}
+
+/* ── Components ── */
+@layer components {
+  /* Skeleton loader */
+  .skeleton {
+    @apply animate-pulse bg-muted/30 rounded-md;
+  }
+
+  /* Section wrapper */
+  .section {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Heritage badge */
+  .badge-heritage {
+    @apply inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full bg-rust/10 text-rust border border-rust/20;
+  }
+
+  /* Category pill */
+  .pill {
+    @apply inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-full border transition-colors duration-150;
+  }
+
+  .pill-active {
+    @apply bg-forest text-snow border-forest;
+  }
+
+  .pill-inactive {
+    @apply bg-snow text-forest border-muted/50 hover:border-forest hover:text-forest;
+  }
+}
+
+/* ── Utilities ── */
+@layer utilities {
+  /* Text gradient */
+  .text-gradient-forest {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-forest to-stone;
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(187, 164, 141, 0.15) 25%,
+      rgba(187, 164, 141, 0.35) 50%,
+      rgba(187, 164, 141, 0.15) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Safe area padding for mobile PWA */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "devbhoomi-ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "storefront": "npm run dev --workspace=apps/storefront",
+    "admin": "npm run dev --workspace=apps/admin"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --forest: #254b5a;
+        --misty: #a6cbd3;
+        --rust: #9d5f1b;
+        --cream: #fdf1db;
+        --stone: #344e95;
+        --muted: #bba48d;
+        --snow: #ffffff;
+        --sidebar: #1a3340;
+    }
+
+    body {
+        @apply bg-gray-50 text-gray-900 antialiased;
+    }
+}
+
+@layer components {
+    .admin-card {
+        @apply bg-white rounded-xl border border-gray-100 shadow-card;
+    }
+
+    .stat-card {
+        @apply admin-card p-5;
+    }
+
+    .table-th {
+        @apply px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-50/70;
+    }
+
+    .table-td {
+        @apply px-4 py-3 text-sm text-gray-700 border-t border-gray-50;
+    }
+}
