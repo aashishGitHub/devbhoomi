@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { User, AuthTokens } from "@/types/user";
+import { clearAuthCookie } from "@/lib/jwt";
 
 interface AuthStore {
     user: User | null;
@@ -20,8 +21,10 @@ export const useAuthStore = create<AuthStore>()(
             setAuth: (user, tokens) =>
                 set({ user, tokens, isAuthenticated: true }),
 
-            clearAuth: () =>
-                set({ user: null, tokens: null, isAuthenticated: false }),
+            clearAuth: () => {
+                set({ user: null, tokens: null, isAuthenticated: false });
+                clearAuthCookie();
+            },
         }),
         {
             name: "devbhoomi-auth",

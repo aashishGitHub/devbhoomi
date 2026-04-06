@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
+import Link from "next/link";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { formatINR } from "@/lib/utils";
@@ -245,12 +246,12 @@ export function CheckoutForm() {
               Thank you for your order. Our team will verify your payment and confirm
               shipment within 2 business hours on WhatsApp.
             </p>
-            <a
+            <Link
               href="/"
               className="inline-block mt-6 bg-forest text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:bg-forest/90 transition-colors"
             >
               Continue Shopping
-            </a>
+            </Link>
           </div>
         )}
       </div>
