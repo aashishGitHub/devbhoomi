@@ -5,6 +5,8 @@ import { Plus, Minus, Trash2, Loader2, ShoppingCart } from "lucide-react";
 import { formatINR } from "@/lib/utils";
 import { useCartStore } from "@/store/cartStore";
 
+export const dynamic = "force-dynamic";
+
 interface QuickOrderRow {
     sku: string;
     name: string;

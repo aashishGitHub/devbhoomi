@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     "Shop authentic Rudraksha, organic Himalayan honey, A2 ghee, Shilajit and sacred ritual items directly from artisans of Uttarakhand.",
 };
 
-// SSG + ISR — revalidate every 5 minutes
 export const revalidate = 300;
 
 export default function HomePage() {

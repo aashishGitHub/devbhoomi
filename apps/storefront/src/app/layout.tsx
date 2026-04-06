@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -94,6 +95,7 @@ export default function RootLayout({
           <Footer />
           <MobileNav />
           <CartDrawer />
+          <LogoutButton />
         </QueryProvider>
       </body>
     </html>
