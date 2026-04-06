@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { authApi } from "@/lib/api";
 import { useAuthStore } from "@/store/authStore";
+import { decodeJWT, setAuthCookie } from "@/lib/jwt";
 
 const schema = z.object({
   email: z.string().email("Enter a valid email address"),
@@ -30,18 +31,21 @@ export function LoginForm() {
   async function onSubmit(values: LoginValues) {
     try {
       const tokens = await authApi.login(values);
-      // TODO: decode JWT to extract user info
+      const payload = decodeJWT(tokens.access_token);
       setAuth(
         {
-          id: "",
-          name: "",
-          email: values.email,
-          role: "customer",
+          id: payload?.user_id ?? "",
+          name: payload?.name ?? "",
+          email: payload?.email ?? values.email,
+          role: payload?.role ?? "customer",
           created_at: new Date().toISOString(),
         },
         tokens
       );
-      router.push("/");
+      setAuthCookie(tokens.access_token, tokens.expires_in);
+
+      const params = new URLSearchParams(window.location.search);
+      router.push(params.get("redirect") ?? "/");
     } catch (err: any) {
       setError("root", {
         message: err.message ?? "Invalid email or password",

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { authApi } from "@/lib/api";
 import { useAuthStore } from "@/store/authStore";
+import { decodeJWT, setAuthCookie } from "@/lib/jwt";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -65,16 +66,18 @@ export function RegisterForm() {
         ...values,
         phone: values.phone || undefined,
       });
+      const payload = decodeJWT(tokens.access_token);
       setAuth(
         {
-          id: "",
-          name: values.name,
-          email: values.email,
-          role: values.account_type === "wholesaler" ? "wholesaler" : "customer",
+          id: payload?.user_id ?? "",
+          name: payload?.name ?? values.name,
+          email: payload?.email ?? values.email,
+          role: payload?.role ?? (values.account_type === "wholesaler" ? "wholesaler" : "customer"),
           created_at: new Date().toISOString(),
         },
         tokens
       );
+      setAuthCookie(tokens.access_token, tokens.expires_in);
       router.push("/");
     } catch (err: any) {
       setError("root", {
