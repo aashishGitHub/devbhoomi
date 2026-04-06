@@ -40,9 +40,9 @@ export default function AdminLoginPage() {
                 const body = await res.json().catch(() => ({}));
                 throw new Error(body?.message ?? "Invalid credentials");
             }
-            const { token } = await res.json();
-            // Store token in httpOnly cookie via a route handler (or localStorage for now)
-            sessionStorage.setItem("admin_token", token);
+            const { token, expires_in } = await res.json();
+            const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
+            document.cookie = `admin_token=${token}; path=/; max-age=${expires_in ?? 900}; SameSite=Strict${secure}`;
             router.push("/dashboard");
         } catch (err: unknown) {
             setError(err instanceof Error ? err.message : "Login failed");

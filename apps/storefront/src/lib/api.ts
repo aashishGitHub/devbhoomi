@@ -28,6 +28,10 @@ function authHeaders(token: string) {
     return { Authorization: `Bearer ${token}` };
 }
 
+function sessionHeaders(sessionId?: string): Record<string, string> {
+    return sessionId ? { "X-Cart-Session": sessionId } : {};
+}
+
 // ── Products ──────────────────────────────────────────────────────────────────
 
 export const productsApi = {
@@ -75,19 +79,20 @@ export const authApi = {
 // ── Cart ──────────────────────────────────────────────────────────────────────
 
 export const cartApi = {
-    get(token?: string): Promise<Cart> {
+    get(token?: string, sessionId?: string): Promise<Cart> {
         return request("/cart", {
-            headers: token ? authHeaders(token) : {},
+            headers: { ...sessionHeaders(sessionId), ...(token ? authHeaders(token) : {}) },
         });
     },
 
     addItem(
         item: Pick<CartItem, "product_id" | "quantity">,
-        token?: string
+        token?: string,
+        sessionId?: string,
     ): Promise<Cart> {
         return request("/cart/items", {
             method: "POST",
-            headers: token ? authHeaders(token) : {},
+            headers: { ...sessionHeaders(sessionId), ...(token ? authHeaders(token) : {}) },
             body: JSON.stringify(item),
         });
     },
@@ -95,19 +100,20 @@ export const cartApi = {
     updateItem(
         id: string,
         quantity: number,
-        token?: string
+        token?: string,
+        sessionId?: string,
     ): Promise<Cart> {
         return request(`/cart/items/${id}`, {
             method: "PUT",
-            headers: token ? authHeaders(token) : {},
+            headers: { ...sessionHeaders(sessionId), ...(token ? authHeaders(token) : {}) },
             body: JSON.stringify({ quantity }),
         });
     },
 
-    removeItem(id: string, token?: string): Promise<Cart> {
+    removeItem(id: string, token?: string, sessionId?: string): Promise<Cart> {
         return request(`/cart/items/${id}`, {
             method: "DELETE",
-            headers: token ? authHeaders(token) : {},
+            headers: { ...sessionHeaders(sessionId), ...(token ? authHeaders(token) : {}) },
         });
     },
 };

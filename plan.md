@@ -529,7 +529,19 @@ export default config;
 
 ## Implementation Phases (12 Weeks)
 
-### Phase 1: Foundation & Auth (Weeks 1–2)
+### Phase 1: Foundation & Auth ✅ COMPLETED
+
+**Go backend** (`server/`) scaffolded with full auth (JWT HS256, bcrypt, refresh-token rotation), product catalogue, cart (guest + authenticated), B2B tiered pricing engine, and PostgreSQL via pgx/v5. Runs on `localhost:8080`.
+
+**Frontend** wired to real backend: `NEXT_PUBLIC_USE_MOCK=false`, JWT decode utility, auth cookie management (`auth_token` cookie for Next.js middleware), `jose`-powered edge-runtime JWT verification in middleware, cart store connected to backend API with guest-session header (`X-Cart-Session`).
+
+**Local dev**: `docker-compose up` starts PostgreSQL 16; `cd server && make run` starts the API.
+
+**To create admin user**: `cd server && make create-admin EMAIL=admin@devbhoomi.com PASSWORD=Admin@123456`
+
+---
+
+### Phase 1: Foundation & Auth — Original Plan (Weeks 1–2)
 
 **Backend (Go):**
 
