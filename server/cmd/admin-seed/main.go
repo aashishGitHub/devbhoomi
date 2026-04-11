@@ -1,5 +1,5 @@
 // admin-seed creates the initial admin user.
-// Usage: go run ./cmd/admin-seed/main.go -email=admin@devbhoomi.com -password=YourPassword
+// Usage: go run ./cmd/admin-seed/main.go -email=admin@devtatva.com -password=YourPassword
 package main
 
 import (

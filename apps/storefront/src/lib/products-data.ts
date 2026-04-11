@@ -10,7 +10,7 @@
  * │                                                                      │
  * │  REAL API MODE (production with Go backend):                          │
  * │    NEXT_PUBLIC_USE_MOCK=false   (or remove the variable)             │
- * │    NEXT_PUBLIC_API_URL=https://api.devbhoomi.com                     │
+ * │    NEXT_PUBLIC_API_URL=https://api.devtatva.com                       │
  * └─────────────────────────────────────────────────────────────────────┘
  */
 

@@ -16,10 +16,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
     title: {
-        default: "Devbhoomi Admin",
-        template: "%s | Devbhoomi Admin",
+        default: "Devtatva Admin",
+        template: "%s | Devtatva Admin",
     },
-    description: "Admin dashboard for Devbhoomi Himalayan Heritage E-Commerce Platform",
+    description: "Admin dashboard for Devtatva Himalayan Heritage E-Commerce Platform",
     robots: { index: false, follow: false },
 };
 

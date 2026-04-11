@@ -48,7 +48,7 @@ export default function WholesalePage() {
                         <span>B2B &amp; Wholesale Portal</span>
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold font-display mb-4">
-                        Partner with Devbhoomi
+                        Partner with Devtatva
                     </h1>
                     <p className="text-lg text-misty max-w-2xl mx-auto mb-8">
                         Access exclusive wholesale pricing on authentic Himalayan products.

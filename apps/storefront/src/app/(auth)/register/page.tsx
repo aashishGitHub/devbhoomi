@@ -13,7 +13,7 @@ export default function RegisterPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <span className="text-3xl font-bold text-forest">Devbhoomi</span>
+            <span className="text-3xl font-bold text-forest">Devtatva</span>
             <span className="block text-xs text-muted tracking-widest uppercase mt-0.5">
               Himalayan Heritage
             </span>
@@ -25,7 +25,7 @@ export default function RegisterPage() {
             Create your account
           </h1>
           <p className="text-forest/60 text-sm mb-8">
-            Join thousands who trust Devbhoomi for authentic Himalayan products
+            Join thousands who trust Devtatva for authentic Himalayan products
           </p>
 
           <RegisterForm />

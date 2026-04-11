@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
                         <Mountain className="h-8 w-8 text-forest" />
                     </div>
                     <h1 className="text-xl font-bold text-forest font-display">
-                        Devbhoomi Admin
+                        Devtatva Admin
                     </h1>
                     <p className="text-xs text-gray-400">Sign in to your dashboard</p>
                 </div>
@@ -80,7 +80,7 @@ export default function AdminLoginPage() {
                             autoComplete="email"
                             {...register("email")}
                             className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest/40 focus:border-forest"
-                            placeholder="admin@devbhoomi.com"
+                            placeholder="admin@devtatva.com"
                         />
                         {errors.email && (
                             <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>

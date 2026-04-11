@@ -36,7 +36,7 @@ export function AdminSidebar() {
             <div className="flex items-center gap-2.5 px-5 py-5 border-b border-white/10">
                 <Mountain className="h-6 w-6 text-misty" />
                 <span className="font-bold text-sm font-display text-misty">
-                    Devbhoomi
+                    Devtatva
                 </span>
                 <span className="text-xs text-white/40 ml-auto">Admin</span>
             </div>

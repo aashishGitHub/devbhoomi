@@ -25,7 +25,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex flex-col leading-none shrink-0">
             <span className="text-xl font-bold text-forest tracking-tight">
-              Devbhoomi
+              Devtatva
             </span>
             <span className="text-[10px] text-muted tracking-widest uppercase">
               Himalayan Heritage

@@ -1,4 +1,4 @@
-BINARY=devbhoomi-api
+BINARY=devtatva-api
 CMD=./cmd/api
 
 .PHONY: run build tidy test create-admin
@@ -15,6 +15,6 @@ tidy:
 test:
 	go test ./...
 
-# Create an admin user. Usage: make create-admin EMAIL=admin@devbhoomi.com PASSWORD=Admin@123456
+# Create an admin user. Usage: make create-admin EMAIL=admin@devtatva.com PASSWORD=Admin@123456
 create-admin:
 	@go run ./cmd/admin-seed/main.go -email=$(EMAIL) -password=$(PASSWORD)

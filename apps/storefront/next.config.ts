@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
         // In production (Vercel) this is removed and real optimisation applies.
         ...(isMockBuild ? { unoptimized: true } : {}),
         remotePatterns: [
-            { protocol: "https", hostname: "cdn.devbhoomi.com" },
+            { protocol: "https", hostname: "cdn.devtatva.com" },
             { protocol: "https", hostname: "**.amazonaws.com" },
             // Placeholder images used in mock/demo mode
             { protocol: "https", hostname: "picsum.photos" },

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { MOCK_PRODUCTS } from "@/lib/mock/data";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://devbhoomi.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://devtatva.com";
 const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 
 // Required for static export compatibility

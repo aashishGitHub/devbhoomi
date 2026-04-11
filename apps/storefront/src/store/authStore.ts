@@ -27,7 +27,7 @@ export const useAuthStore = create<AuthStore>()(
             },
         }),
         {
-            name: "devbhoomi-auth",
+            name: "devtatva-auth",
             partialize: (state) => ({
                 user: state.user,
                 tokens: state.tokens,

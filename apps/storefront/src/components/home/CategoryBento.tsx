@@ -51,7 +51,7 @@ export function CategoryBento() {
     <section className="section py-14">
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-forest mb-2">
-          Three Pillars of Devbhoomi
+          Three Pillars of Devtatva
         </h2>
         <p className="text-forest/60 text-sm max-w-lg mx-auto">
           Everything we sell maps to one of three sacred commitments — ritual,

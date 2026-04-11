@@ -33,7 +33,7 @@ export function CheckoutForm() {
 
   // ── Configurable via env vars (set in .env.local or Cloudflare dashboard) ──
   const UPI_ID =
-    process.env.NEXT_PUBLIC_UPI_ID ?? "devbhoomi@paytm";
+    process.env.NEXT_PUBLIC_UPI_ID ?? "devtatva@paytm";
   const WHATSAPP_NUMBER =
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "919999999999";
 
@@ -195,7 +195,7 @@ export function CheckoutForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
               {/* UPI deeplink — opens any UPI app on mobile */}
               <a
-                href={`upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=Devbhoomi+Heritage&am=${total + shipping}&cu=INR&tn=Devbhoomi+Order`}
+                href={`upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=Devtatva+Heritage&am=${total + shipping}&cu=INR&tn=Devtatva+Order`}
                 className="flex items-center justify-center gap-2.5 bg-forest text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-forest/90 transition-colors"
               >
                 <Smartphone className="h-4 w-4" />
@@ -205,7 +205,7 @@ export function CheckoutForm() {
               {/* WhatsApp — works on all devices */}
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                  `Hi! I want to place an order on Devbhoomi.\n\nOrder total: ${formatINR(total + shipping)}\nItems: ${items.map((i) => `${i.name} ×${i.quantity}`).join(", ")}\n\nPlease guide me on payment confirmation.`
+                  `Hi! I want to place an order on Devtatva.\n\nOrder total: ${formatINR(total + shipping)}\nItems: ${items.map((i) => `${i.name} ×${i.quantity}`).join(", ")}\n\nPlease guide me on payment confirmation.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

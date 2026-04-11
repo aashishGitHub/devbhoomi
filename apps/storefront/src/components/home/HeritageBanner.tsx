@@ -13,7 +13,7 @@ export function HeritageBanner() {
       <div className="section">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-snow mb-3">
-            The Devbhoomi Commitment
+            The Devtatva Commitment
           </h2>
           <p className="text-snow/60 max-w-xl mx-auto text-sm leading-relaxed">
             Every product we sell carries a story — from the hands that made it

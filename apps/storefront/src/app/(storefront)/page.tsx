@@ -7,7 +7,7 @@ import { TrustSignals } from "@/components/home/TrustSignals";
 import { NewsletterStrip } from "@/components/home/NewsletterStrip";
 
 export const metadata: Metadata = {
-  title: "Devbhoomi — Sacred & Organic Himalayan Products",
+  title: "Devtatva — Sacred & Organic Himalayan Products",
   description:
     "Shop authentic Rudraksha, organic Himalayan honey, A2 ghee, Shilajit and sacred ritual items directly from artisans of Uttarakhand.",
 };

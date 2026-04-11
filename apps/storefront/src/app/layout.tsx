@@ -21,10 +21,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://devbhoomi.com"),
+  metadataBase: new URL("https://devtatva.com"),
   title: {
-    default: "Devbhoomi — Sacred & Organic Himalayan Products",
-    template: "%s | Devbhoomi",
+    default: "Devtatva — Sacred & Organic Himalayan Products",
+    template: "%s | Devtatva",
   },
   description:
     "Authentic sacred items, organic Himalayan foods, and heritage wellness products sourced directly from artisans and farmers of Uttarakhand.",
@@ -40,20 +40,20 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://devbhoomi.com",
-    siteName: "Devbhoomi Himalayan Heritage",
+    url: "https://devtatva.com",
+    siteName: "Devtatva Himalayan Heritage",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Devbhoomi — Himalayan Heritage Products",
+        alt: "Devtatva — Himalayan Heritage Products",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@devbhoomi",
+    site: "@devtatva",
   },
   robots: {
     index: true,

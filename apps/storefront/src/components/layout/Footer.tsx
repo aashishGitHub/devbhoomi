@@ -30,7 +30,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex flex-col leading-none mb-4 w-fit">
-              <span className="text-2xl font-bold text-snow">Devbhoomi</span>
+              <span className="text-2xl font-bold text-snow">Devtatva</span>
               <span className="text-xs text-snow/50 tracking-widest uppercase mt-0.5">
                 Himalayan Heritage
               </span>
@@ -47,10 +47,10 @@ export function Footer() {
             <div className="flex items-center gap-2 text-sm text-snow/50">
               <Mail className="w-4 h-4 shrink-0" />
               <a
-                href="mailto:hello@devbhoomi.com"
+                href="mailto:hello@devtatva.com"
                 className="hover:text-snow transition-colors"
               >
-                hello@devbhoomi.com
+                hello@devtatva.com
               </a>
             </div>
           </div>
@@ -78,7 +78,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-snow/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-snow/40">
-            © {new Date().getFullYear()} Devbhoomi Himalayan Heritage. All rights reserved.
+            © {new Date().getFullYear()} Devtatva Himalayan Heritage. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             <Link
@@ -98,20 +98,17 @@ export function Footer() {
           {/* Social */}
           <div className="flex items-center gap-3">
             {[
-              { Icon: Instagram, href: "https://instagram.com/devbhoomi", label: "Instagram" },
-              { Icon: Facebook, href: "https://facebook.com/devbhoomi", label: "Facebook" },
-              { Icon: Youtube, href: "https://youtube.com/@devbhoomi", label: "YouTube" },
+              { Icon: Instagram, href: "#", label: "Instagram" },
+              { Icon: Facebook, href: "#", label: "Facebook" },
+              { Icon: Youtube, href: "#", label: "YouTube" },
             ].map(({ Icon, href, label }) => (
-              <a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-snow/40 hover:text-snow/80 transition-colors"
+              <span
+                key={label}
+                className="text-snow/40 cursor-not-allowed"
                 aria-label={label}
               >
                 <Icon className="w-4 h-4" />
-              </a>
+              </span>
             ))}
           </div>
         </div>

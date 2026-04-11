@@ -4,12 +4,12 @@
  * ║                                                                      ║
  * ║  To switch to the real API:                                          ║
  * ║    1. Remove NEXT_PUBLIC_USE_MOCK from your .env.local               ║
- * ║    2. Set NEXT_PUBLIC_API_URL=https://api.devbhoomi.com              ║
+ * ║    2. Set NEXT_PUBLIC_API_URL=https://api.devtatva.com                ║
  * ║    3. The productService (src/lib/products-data.ts) auto-switches    ║
  * ╚══════════════════════════════════════════════════════════════════════╝
  *
  * Images use picsum.photos with deterministic seeds — swap with real
- * S3/CDN URLs (cdn.devbhoomi.com/...) when uploading actual product shots.
+ * S3/CDN URLs (cdn.devtatva.com/...) when uploading actual product shots.
  */
 
 import type { Product } from "@/types/product";
@@ -133,7 +133,7 @@ const SACRED_PRODUCTS: Product[] = [
             "https://picsum.photos/seed/dhoop-smoke/600/400",
         ],
         seo: {
-            title: "Bambooless Dhoop Cones — Lotus & Camphor | Devbhoomi",
+            title: "Bambooless Dhoop Cones — Lotus & Camphor | Devtatva",
             description:
                 "100% natural bamboo-free dhoop cones from Haridwar. Made from recycled temple flowers, camphor, and Himalayan resins. Box of 20.",
             keywords: ["dhoop cones", "bamboo free", "natural incense", "lotus camphor", "haridwar"],
@@ -180,7 +180,7 @@ const FOODS_PRODUCTS: Product[] = [
             "https://picsum.photos/seed/honey-jar/600/400",
         ],
         seo: {
-            title: "Wild Raw Himalayan Honey 500g — NPOP Organic | Devbhoomi",
+            title: "Wild Raw Himalayan Honey 500g — NPOP Organic | Devtatva",
             description:
                 "Unfiltered wild honey from 2,700 m altitude in Munsiyari. Cold-extracted, NPOP organic certified. Rich in enzymes and antioxidants.",
             keywords: ["himalayan honey", "raw honey", "wild honey", "organic honey", "munsiyari"],
@@ -221,7 +221,7 @@ const FOODS_PRODUCTS: Product[] = [
             "https://picsum.photos/seed/bilona-process/600/400",
         ],
         seo: {
-            title: "A2 Bilona Ghee 500ml — Badri Cow, Hand-Churned | Devbhoomi",
+            title: "A2 Bilona Ghee 500ml — Badri Cow, Hand-Churned | Devtatva",
             description:
                 "Traditional bilona ghee from Badri cows in Chamoli, Uttarakhand. Hand-churned, NPOP organic certified. Rich in A2 protein and butyric acid.",
             keywords: ["a2 ghee", "bilona ghee", "badri cow", "himalayan ghee", "organic ghee", "chamoli"],
@@ -265,7 +265,7 @@ const FOODS_PRODUCTS: Product[] = [
             "https://picsum.photos/seed/millet-grain/600/400",
         ],
         seo: {
-            title: "Mandua Finger Millet Flour 1kg — Stone Ground, Gluten-Free | Devbhoomi",
+            title: "Mandua Finger Millet Flour 1kg — Stone Ground, Gluten-Free | Devtatva",
             description:
                 "Traditional Himalayan Mandua flour, stone-ground in Lansdowne. Gluten-free, NPOP organic. High in calcium and iron.",
             keywords: ["mandua", "finger millet flour", "ragi", "gluten free", "himalayan millet", "organic"],
@@ -312,7 +312,7 @@ const WELLNESS_PRODUCTS: Product[] = [
             "https://picsum.photos/seed/shilajit-jar/600/400",
         ],
         seo: {
-            title: "Purified Shilajit Resin Grade A 10g — From 4500m Altitude | Devbhoomi",
+            title: "Purified Shilajit Resin Grade A 10g — From 4500m Altitude | Devtatva",
             description:
                 "Authentic Grade-A Shilajit resin from Uttarkashi. >62% fulvic acid, AYUSH compliant, lab-tested. Traditional purification method.",
             keywords: ["shilajit", "shilajit resin", "fulvic acid", "himalayan shilajit", "uttarkashi"],
@@ -356,7 +356,7 @@ const WELLNESS_PRODUCTS: Product[] = [
             "https://picsum.photos/seed/ashwagandha-root/600/400",
         ],
         seo: {
-            title: "Wild Ashwagandha Root Powder 100g — >2.5% Withanolides | Devbhoomi",
+            title: "Wild Ashwagandha Root Powder 100g — >2.5% Withanolides | Devtatva",
             description:
                 "Wild-harvested ashwagandha from Ranikhet, Uttarakhand. Pure root powder, no fillers. >2.5% withanolides, NPOP organic certified.",
             keywords: ["ashwagandha", "ashwagandha powder", "withanolides", "adaptogen", "ranikhet", "ayurveda"],
@@ -401,7 +401,7 @@ const WELLNESS_PRODUCTS: Product[] = [
             "https://picsum.photos/seed/seabuckthorn-berries/600/400",
         ],
         seo: {
-            title: "Sea Buckthorn Berry Juice 250ml — Cold-Pressed, 3000m Altitude | Devbhoomi",
+            title: "Sea Buckthorn Berry Juice 250ml — Cold-Pressed, 3000m Altitude | Devtatva",
             description:
                 "Pure cold-pressed sea buckthorn juice from Munsiyari. Rich in Vitamin C, Omega-7. No sugar, no preservatives. NPOP organic.",
             keywords: ["sea buckthorn", "seabuckthorn juice", "vitamin c", "omega 7", "himalayan berry"],

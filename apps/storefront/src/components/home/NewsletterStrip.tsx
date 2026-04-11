@@ -37,7 +37,7 @@ export function NewsletterStrip() {
         {submitted ? (
           <div className="flex items-center justify-center gap-2 text-sm font-medium text-green-700 bg-green-50 border border-green-200 rounded-xl py-3 px-5">
             <CheckCircle className="w-4 h-4" aria-hidden="true" />
-            You&apos;re subscribed! Welcome to Devbhoomi.
+            You&apos;re subscribed! Welcome to Devtatva.
           </div>
         ) : (
           <form

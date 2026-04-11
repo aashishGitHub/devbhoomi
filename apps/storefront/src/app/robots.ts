@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: "/",
             disallow: ["/checkout", "/cart", "/login", "/register", "/orders"],
         },
-        sitemap: "https://devbhoomi.com/sitemap.xml",
+        sitemap: "https://devtatva.com/sitemap.xml",
     };
 }
