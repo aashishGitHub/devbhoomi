@@ -15,7 +15,7 @@ export default function RegisterPage() {
           <Link href="/" className="inline-block">
             <span className="text-3xl font-bold text-forest">Devtatva</span>
             <span className="block text-xs text-muted tracking-widest uppercase mt-0.5">
-              Himalayan Heritage
+              From the Land of Gods to Your Home
             </span>
           </Link>
         </div>

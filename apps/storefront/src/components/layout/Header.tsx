@@ -28,7 +28,7 @@ export function Header() {
               Devtatva
             </span>
             <span className="text-[10px] text-muted tracking-widest uppercase">
-              Himalayan Heritage
+              From the Land of Gods to Your Home
             </span>
           </Link>
 

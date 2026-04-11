@@ -11,7 +11,7 @@ import {
 
 export const metadata: Metadata = {
     title: "Wholesale Portal",
-    description: "Bulk purchasing and wholesale pricing for Himalayan heritage products",
+    description: "Bulk purchasing and wholesale pricing for Himalayan heritage products. From the Land of Gods to Your Home.",
 };
 
 const BENEFITS = [
@@ -51,7 +51,7 @@ export default function WholesalePage() {
                         Partner with Devtatva
                     </h1>
                     <p className="text-lg text-misty max-w-2xl mx-auto mb-8">
-                        Access exclusive wholesale pricing on authentic Himalayan products.
+                        Access exclusive wholesale pricing on authentic Himalayan products. From the Land of Gods to Your Home.
                         Ideal for retailers, distributors, wellness centres, and export businesses.
                     </p>
                     <div className="flex flex-wrap justify-center gap-3">

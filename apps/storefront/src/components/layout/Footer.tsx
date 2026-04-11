@@ -32,7 +32,7 @@ export function Footer() {
             <Link href="/" className="flex flex-col leading-none mb-4 w-fit">
               <span className="text-2xl font-bold text-snow">Devtatva</span>
               <span className="text-xs text-snow/50 tracking-widest uppercase mt-0.5">
-                Himalayan Heritage
+                From the Land of Gods to Your Home
               </span>
             </Link>
             <p className="text-sm text-snow/60 leading-relaxed mb-5 max-w-xs">
@@ -78,7 +78,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-snow/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-snow/40">
-            © {new Date().getFullYear()} Devtatva Himalayan Heritage. All rights reserved.
+            © {new Date().getFullYear()} Devtatva. From the Land of Gods to Your Home. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             <Link
