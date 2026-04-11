@@ -1,8 +1,10 @@
-# Devbhoomi — Himalayan E-Commerce Platform
+# Devtatva — Himalayan E-Commerce Platform
 
-> **Live Demo → [devbhoomi.pages.dev](https://devbhoomi.pages.dev/)**
+> **"From the Land of Gods to Your Home"**
 
-A production-grade, full-stack e-commerce platform for authentic Himalayan products — sacred items, organic foods, and heritage wellness. Designed and engineered end-to-end: product catalogue, cart, checkout with UPI & WhatsApp payment, wholesale B2B portal, and a complete admin dashboard.
+> **Live Demo → [devtatva.pages.dev](https://devtatva.pages.dev/)**
+
+A production-grade, full-stack e-commerce platform for authentic Himalayan products — sacred items, organic foods, and herbal care. Designed and engineered end-to-end: product catalogue, cart, checkout with UPI & WhatsApp payment, wholesale B2B portal, and a complete admin dashboard.
 
 Built with **Next.js 15 (App Router) · Go 1.22 (Gin) · PostgreSQL · Tailwind CSS**. Monorepo structure with shared types, hot-reloading dev experience, and zero-config deployments.
 
@@ -231,8 +233,8 @@ e-commerce/
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/aashishGitHub/devbhoomi.git
-cd devbhoomi
+git clone https://github.com/aashishGitHub/e-commerce.git
+cd e-commerce
 
 # Install root-level dependencies (turbo)
 npm install
@@ -271,8 +273,8 @@ NEXT_PUBLIC_API_URL=http://localhost:8080
 # Site info
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
-# Payment (optional for testing)
-NEXT_PUBLIC_UPI_ID=9243469722@yescred
+# Payment (production)
+NEXT_PUBLIC_UPI_ID=Santosh.joshi13@axisbank
 NEXT_PUBLIC_WHATSAPP_NUMBER=919718650521
 ```
 
@@ -282,7 +284,7 @@ NEXT_PUBLIC_WHATSAPP_NUMBER=919718650521
 cd server
 
 # Set the required env vars (or create a .env file)
-export DATABASE_URL="postgresql://devbhoomi:devbhoomi_secret@localhost:5432/devbhoomi"
+export DATABASE_URL="postgresql://devtatva:devtatva_secret@localhost:5432/devtatva"
 export JWT_SECRET="your-secret-key-at-least-32-chars-long-abcdefghijklmnopqr"
 export PORT=8080
 export GIN_MODE=debug
@@ -335,7 +337,7 @@ npm run dev
 
 2. **Admin** (http://localhost:3001):
    - Go to login page
-   - Use seed admin: `admin@devbhoomi.com` / `Admin@123456` (from `002_seed.sql`)
+   - Use seed admin: `admin@devtatva.com` / `Admin@123456` (from `002_seed.sql`)
    - See dashboard, analytics, product table
 
 3. **API** (http://localhost:8080):
@@ -519,7 +521,7 @@ docker-compose logs -f postgres
 docker exec -it devbhoomi-postgres psql -U devbhoomi -d devbhoomi
 
 # Seed initial data
-docker-compose exec postgres psql -U devbhoomi -d devbhoomi \
+docker-compose exec postgres psql -U devtatva -d devtatva \
   < server/internal/database/migrations/002_seed.sql
 
 # Stop & clean (WARNING: deletes all data)
@@ -569,7 +571,7 @@ cd apps/admin && npm run dev
 | Account Type | Email | Password | Use Case |
 |-------------|-------|----------|----------|
 | Customer | `test@example.com` | `Test@123456` | Storefront login |
-| Admin | `admin@devbhoomi.com` | `Admin@123456` | Admin dashboard |
+| Admin | `admin@devtatva.com` | `Admin@123456` | Admin dashboard |
 
 **Create new users:**
 
@@ -595,7 +597,7 @@ docker compose up -d postgres
 docker ps --filter "name=postgres"
 
 # Connect to database
-docker exec -it e-commerce-postgres-1 psql -U devbhoomi -d devbhoomi
+docker exec -it e-commerce-postgres-1 psql -U devtatva -d devtatva
 
 # View tables
 \dt
@@ -641,7 +643,7 @@ curl http://localhost:8080/api/v1/products
 # Should return JSON with products
 
 # Manual DB test
-docker exec e-commerce-postgres-1 psql -U devbhoomi -d devbhoomi -c "SELECT 1;"
+docker exec e-commerce-postgres-1 psql -U devtatva -d devtatva -c "SELECT 1;"
 ```
 
 #### Frontend Not Connecting to API
@@ -661,7 +663,7 @@ curl -I -X OPTIONS http://localhost:8080/api/v1/products \
 
 ```bash
 # Check if user exists in DB
-docker exec e-commerce-postgres-1 psql -U devbhoomi -d devbhoomi \
+docker exec e-commerce-postgres-1 psql -U devtatva -d devtatva \
   -c "SELECT email, role FROM users;"
 
 # If empty, register a user first (see Test Credentials above)
@@ -723,7 +725,7 @@ npm run build -w apps/storefront
 npm run build -w apps/admin
 
 # Go build
-cd server && go build -o devbhoomi-api ./cmd/api
+cd server && go build -o devtatva-api ./cmd/api
 ```
 
 ---
@@ -734,14 +736,56 @@ cd server && go build -o devbhoomi-api ./cmd/api
 |---|---|---|
 | Core infrastructure | ✅ Done | PostgreSQL, Go API, Next.js monorepo, migrations |
 | User authentication | ✅ Done | JWT, bcrypt, refresh tokens, cookie storage |
-| Product catalog | ✅ Done | REST API, search, filtering, 9 seed products |
+| Product catalog | ✅ Done | REST API, search, filtering, seed products |
 | Cart functionality | ✅ Done | Guest + authenticated carts, merge logic |
 | Storefront UI | ✅ Done | Product pages, cart drawer, checkout (UPI/WhatsApp) |
 | Admin dashboard | ✅ Done | Analytics, product management, order table, customer insights |
 | B2B engine | ✅ Done | Volume discounts, wholesaler pricing, quick-order |
 | JWT + role-based auth | ✅ Done | Customer/Wholesaler/Admin roles, protected routes |
-| Production deploy | 🔄 In progress | Verify local stack, run smoke tests, prepare deployment |
+| Devtatva rebrand | ✅ Done | Brand name, tagline, styling, contact info updates |
+| Product variants | 🔄 In progress | Support pack sizes (5-pack, 12-pack, weight variants) |
+| Information pages | 🔄 In progress | Our Story, Traceability, Contact, Return & Refund Policy |
+| Inventory badges | 🔄 In progress | Sold-out indicators, low-stock warnings |
+| Production deploy | ⏳ Planned | Verify local stack, run smoke tests, prepare deployment |
 | Razorpay integration | ⏳ Planned | Real payment gateway for production |
 | Order fulfillment | ⏳ Planned | Order status tracking, shipments, invoices |
 | Email notifications | ⏳ Planned | Order confirmations, password reset, alerts |
 | Analytics dashboard | ⏳ Planned | Advanced metrics, cohort analysis, reporting |
+
+---
+
+## Contact & Support
+
+**Company:** Devtatva Wellness Pvt. Ltd.  
+**Address:** Post office – Binta, Bagwalipokher, District – Almora, Uttarakhand, India  
+**Email:** Devtatva@zohomail.in (Support) | Devtatva@gmail.com (General)  
+**Phone:** +91 xxxxxxx521  
+**Hours:** Monday to Saturday, 10 AM – 5 PM IST
+
+**Payment UPI:** `Santosh.joshi13@axisbank`  
+**WhatsApp Orders:** +91 9718650521
+
+---
+
+## Recent Updates (April 2026)
+
+### Devtatva Rebrand ✅
+- Complete rebranding from Devbhoomi to Devtatva
+- New tagline: "From the Land of Gods to Your Home"
+- Updated contact information and location (Ranikhet, Almora)
+- New UPI payment ID for checkout
+- Social media icons made non-clickable (pending setup)
+
+### Product Catalog Updates 🔄
+- Adding product variants (pack sizes, weight options)
+- New products: Janeu, Cow Dung, Sacred Puja Samagri
+- Sold-out inventory badges
+- Dynamic product loading from database
+
+### Information Pages 🔄
+- Our Story page with brand heritage
+- Traceability page explaining sourcing
+- Contact Us page with company details
+- Return & Refund Policy page
+
+---
