@@ -758,7 +758,7 @@ cd server && go build -o devtatva-api ./cmd/api
 
 **Company:** Devtatva Wellness Pvt. Ltd.  
 **Address:** Post office – Binta, Bagwalipokher, District – Almora, Uttarakhand, India  
-**Email:** Devtatva@zohomail.in (Support) | Devtatva@gmail.com (General)  
+**Email:** Devtatva@zohomail.in
 **Phone:** +91 xxxxxxx521  
 **Hours:** Monday to Saturday, 10 AM – 5 PM IST
 

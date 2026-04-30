@@ -20,6 +20,13 @@ const nextConfig: NextConfig = {
             { protocol: "https", hostname: "picsum.photos" },
         ],
         formats: ["image/avif", "image/webp"],
+        // Cache optimised images on the server host for 30 days (default is 60s).
+        // Means product images fetched from the Go API are served from
+        // .next/cache/images/ on subsequent requests — no re-fetch from the origin.
+        minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days in seconds
+        // Keep up to 1000 distinct image variants in the server-side cache
+        deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     },
     experimental: {
         optimizePackageImports: ["lucide-react", "framer-motion"],

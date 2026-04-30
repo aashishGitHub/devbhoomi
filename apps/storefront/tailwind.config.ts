@@ -19,6 +19,7 @@ const config: Config = {
             },
             fontFamily: {
                 sans: ["Manrope", "Inter", "sans-serif"],
+                serif: ["Georgia", "'Times New Roman'", "serif"],
                 signature: ["var(--font-signature)", "cursive"],
             },
             backgroundImage: {
@@ -34,6 +35,8 @@ const config: Config = {
             animation: {
                 "fade-up": "fadeUp 0.5s ease-out forwards",
                 shimmer: "shimmer 1.5s infinite",
+                "gradient-x": "gradientX 4s ease infinite",
+                float: "float 6s ease-in-out infinite",
             },
             keyframes: {
                 fadeUp: {
@@ -43,6 +46,14 @@ const config: Config = {
                 shimmer: {
                     "0%": { backgroundPosition: "-200% 0" },
                     "100%": { backgroundPosition: "200% 0" },
+                },
+                gradientX: {
+                    "0%, 100%": { backgroundSize: "200% 200%", backgroundPosition: "left center" },
+                    "50%": { backgroundSize: "200% 200%", backgroundPosition: "right center" },
+                },
+                float: {
+                    "0%, 100%": { transform: "translateY(0px)" },
+                    "50%": { transform: "translateY(-10px)" },
                 },
             },
         },

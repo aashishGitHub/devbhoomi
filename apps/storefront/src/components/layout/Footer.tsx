@@ -11,8 +11,8 @@ const FOOTER_LINKS = {
   Company: [
     { label: "Our Story", href: "/about" },
     { label: "Traceability", href: "/traceability" },
-    { label: "Certifications", href: "/certifications" },
-    { label: "Blog", href: "/blog" },
+    // { label: "Certifications", href: "/certifications" },
+    // { label: "Blog", href: "/blog" },
   ],
   Support: [
     { label: "Contact Us", href: "/contact" },
@@ -42,15 +42,16 @@ export function Footer() {
             </p>
             <div className="flex items-start gap-2 text-sm text-snow/50 mb-3">
               <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-              <span>Rishikesh, Uttarakhand, India</span>
+              <span>Ranikhet, District Almora, Uttarakhand, India
+              </span>
             </div>
             <div className="flex items-center gap-2 text-sm text-snow/50">
               <Mail className="w-4 h-4 shrink-0" />
               <a
-                href="mailto:hello@devtatva.com"
+                href="mailto:Devtatva@zohomail.in"
                 className="hover:text-snow transition-colors"
               >
-                hello@devtatva.com
+                Devtatva@zohomail.in
               </a>
             </div>
           </div>
@@ -78,9 +79,9 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-snow/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-snow/40">
-            © {new Date().getFullYear()} Devtatva. From the Land of Gods to Your Home. All rights reserved.
+            Devtatva. From the Land of Gods to Your Home.
           </p>
-          <div className="flex items-center gap-3">
+          {/* <div className="flex items-center gap-3">
             <Link
               href="/privacy"
               className="text-xs text-snow/40 hover:text-snow/70 transition-colors"
@@ -94,9 +95,9 @@ export function Footer() {
             >
               Terms of Service
             </Link>
-          </div>
+          </div> */}
           {/* Social */}
-          <div className="flex items-center gap-3">
+          {/* <div className="flex items-center gap-3">
             {[
               { Icon: Instagram, href: "#", label: "Instagram" },
               { Icon: Facebook, href: "#", label: "Facebook" },
@@ -110,7 +111,7 @@ export function Footer() {
                 <Icon className="w-4 h-4" />
               </span>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
