@@ -45,6 +45,7 @@ func main() {
 	userRepo    := repository.NewUserRepository(pool)
 	productRepo := repository.NewProductRepository(pool)
 	cartRepo    := repository.NewCartRepository(pool)
+	orderRepo   := repository.NewOrderRepository(pool)
 
 	// ── services ──────────────────────────────────────────────────────────────
 	authSvc    := service.NewAuthService(userRepo, cfg.JWTSecret, cfg.AccessTokenTTL, cfg.RefreshTokenTTL)
@@ -56,6 +57,7 @@ func main() {
 	productH := handler.NewProductHandler(productSvc)
 	cartH    := handler.NewCartHandler(cartSvc)
 	b2bH     := handler.NewB2BHandler(productSvc, cartSvc)
+	adminH   := handler.NewAdminHandler(productSvc, orderRepo, userRepo)
 
 	// ── router ────────────────────────────────────────────────────────────────
 	if os.Getenv("GIN_MODE") == "" {
@@ -114,6 +116,27 @@ func main() {
 	v1.POST("/cart/merge", reqAuth, func(c *gin.Context) {
 		b2bH.MergeCart(c)
 	})
+
+	// Admin routes (require auth + admin role)
+	admin := v1.Group("/admin", reqAuth, middleware.RequireRole("admin"))
+	{
+		admin.GET("/dashboard/stats", adminH.DashboardStats)
+
+		admin.GET("/products", adminH.ListProducts)
+		admin.GET("/products/:id", adminH.GetProduct)
+		admin.POST("/products", adminH.CreateProduct)
+		admin.PUT("/products/:id", adminH.UpdateProduct)
+		admin.DELETE("/products/:id", adminH.DeleteProduct)
+		admin.PUT("/products/:id/inventory", adminH.UpdateInventory)
+
+		admin.GET("/orders", adminH.ListOrders)
+		admin.PUT("/orders/:id/status", adminH.UpdateOrderStatus)
+
+		admin.GET("/customers", adminH.ListCustomers)
+
+		admin.GET("/wholesalers", adminH.ListWholesalers)
+		admin.PUT("/wholesalers/:id/approve", adminH.ApproveWholesaler)
+	}
 
 	// ── server ────────────────────────────────────────────────────────────────
 	srv := &http.Server{

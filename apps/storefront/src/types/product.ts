@@ -1,3 +1,11 @@
+export interface ProductVariant {
+    name: string;
+    price_inr: number;
+    price_usd?: number;
+    inventory: number;
+    sku?: string;
+}
+
 export interface Product {
     id: string;
     name: string;
@@ -9,6 +17,7 @@ export interface Product {
         inr: number;
         usd?: number;
     };
+    variants?: ProductVariant[];
     b2b_pricing?: Array<{
         min_qty: number;
         max_qty?: number;

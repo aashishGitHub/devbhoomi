@@ -30,7 +30,7 @@ export function ProductCard({ product }: ProductCardProps) {
     openCart();
   }
 
-  const isOutOfStock = product.status === "out_of_stock";
+  const isOutOfStock = product.status === "out_of_stock" || (product.inventory?.retail === 0);
 
   return (
     <Link
@@ -55,7 +55,7 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Category badge */}
-        <div className="absolute top-2.5 left-2.5">
+        <div className="absolute top-2.5 left-2.5 flex gap-1.5">
           <Badge
             variant={
               product.category === "sacred"
@@ -65,6 +65,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 : "new"
             }
           />
+          {isOutOfStock && <Badge variant="outofstock" />}
         </div>
 
         {/* Quick add overlay — desktop */}

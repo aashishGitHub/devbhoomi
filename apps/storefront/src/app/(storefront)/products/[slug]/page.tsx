@@ -78,7 +78,7 @@ export default async function ProductDetailPage({
   ];
 
   return (
-    <div className="section py-6">
+    <div className="section pt-20 pb-6">
       <Breadcrumb items={breadcrumbs} className="mb-6" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">

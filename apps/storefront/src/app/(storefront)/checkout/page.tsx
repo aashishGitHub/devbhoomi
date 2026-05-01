@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default function CheckoutPage() {
   return (
-    <div className="section py-8">
+    <div className="section pt-20 pb-8">
       <h1 className="text-2xl font-bold text-forest mb-8">Checkout</h1>
       <CheckoutForm />
     </div>

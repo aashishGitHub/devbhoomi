@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ShoppingBag, Search, User, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,11 +15,31 @@ const NAV_LINKS = [
   { label: "Wholesale", href: "/wholesale" },
 ];
 
+// Pages that have a light background at the top (no dark hero section).
+// On these pages, the header must always use dark/contrasting colors.
+const LIGHT_BG_PAGES = [
+  "/login",
+  "/register",
+  "/cart",
+  "/checkout",
+  "/credit",
+  "/quick-order",
+  "/wholesale/apply",
+];
+
 export function Header() {
+  const pathname = usePathname();
   const itemCount = useCartStore((s) => s.itemCount());
   const openCart = useCartStore((s) => s.openCart);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Check if current page starts with a light background (no hero section)
+  const isLightPage = LIGHT_BG_PAGES.some(
+    (p) => pathname === p || pathname.startsWith(p + "/")
+  );
+  // Once user scrolls, header becomes dark on any page — same as lightPage style
+  const isDark = isLightPage || scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -26,11 +47,16 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close mobile nav on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled
+        isDark
           ? "bg-[#091519]/95 backdrop-blur-md border-b border-snow/10 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
           : "bg-transparent border-b border-transparent"
       )}
@@ -41,13 +67,13 @@ export function Header() {
           <Link href="/" className="flex flex-col leading-none shrink-0">
             <span className={cn(
               "text-xl font-bold tracking-tight transition-colors duration-300",
-              scrolled ? "text-snow" : "text-snow"
+              isDark ? "text-snow" : "text-snow"
             )}>
               Devtatva
             </span>
             <span className={cn(
               "text-[9px] tracking-widest uppercase transition-colors duration-300",
-              scrolled ? "text-misty/70" : "text-snow/60"
+              isDark ? "text-misty/70" : "text-snow/60"
             )}>
               From the Land of Gods
             </span>
@@ -61,7 +87,7 @@ export function Header() {
                 href={link.href}
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
-                  scrolled
+                  isDark
                     ? "text-snow/70 hover:text-snow hover:bg-snow/10"
                     : "text-snow/80 hover:text-snow hover:bg-snow/10"
                 )}
@@ -77,7 +103,7 @@ export function Header() {
               href="/products"
               className={cn(
                 "p-2 rounded-full transition-all duration-200",
-                scrolled ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
+                isDark ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
               )}
               aria-label="Search products"
             >
@@ -88,7 +114,7 @@ export function Header() {
               href="/login"
               className={cn(
                 "hidden sm:flex p-2 rounded-full transition-all duration-200",
-                scrolled ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
+                isDark ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
               )}
               aria-label="Account"
             >
@@ -99,7 +125,7 @@ export function Header() {
               onClick={openCart}
               className={cn(
                 "relative p-2 rounded-full transition-all duration-200",
-                scrolled ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
+                isDark ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
               )}
               aria-label={`Cart (${itemCount} items)`}
             >
@@ -118,7 +144,7 @@ export function Header() {
             <button
               className={cn(
                 "md:hidden p-2 rounded-full transition-all duration-200",
-                scrolled ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
+                isDark ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
               )}
               onClick={() => setMobileOpen((o) => !o)}
               aria-label="Toggle menu"

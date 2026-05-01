@@ -14,21 +14,26 @@ interface ProductInfoProps {
 
 export function ProductInfo({ product }: ProductInfoProps) {
   const [qty, setQty] = useState(1);
+  const [selectedVariant, setSelectedVariant] = useState(0);
   const addItem = useCartStore((s) => s.addItem);
   const openCart = useCartStore((s) => s.openCart);
 
-  const isOutOfStock = product.status === "out_of_stock";
+  const hasVariants = product.variants && product.variants.length > 0;
+  const activeVariant = hasVariants ? product.variants![selectedVariant] : null;
+  const activePrice = activeVariant ? activeVariant.price_inr : product.price.inr;
+  const isOutOfStock = product.status === "out_of_stock" || (product.inventory?.retail === 0);
   const b2bDiscount =
     product.b2b_pricing ? getB2BDiscount(qty, product.b2b_pricing) : 0;
 
   function handleAddToCart() {
+    const variantLabel = activeVariant ? ` (${activeVariant.name})` : "";
     for (let i = 0; i < qty; i++) {
       addItem({
         product_id: product.id,
-        name: product.name,
+        name: product.name + variantLabel,
         slug: product.slug,
         image: product.images?.[0] ?? "",
-        price_inr: product.price.inr,
+        price_inr: activePrice,
         quantity: 1,
       });
     }
@@ -76,13 +81,49 @@ export function ProductInfo({ product }: ProductInfoProps) {
       {/* Description */}
       <p className="text-forest/70 leading-relaxed">{product.description}</p>
 
+      {/* Stock status */}
+      {product.inventory && (
+        <div className="text-sm">
+          {product.inventory.retail === 0 ? (
+            <span className="text-red-600 font-semibold">sold out</span>
+          ) : product.inventory.retail <= 10 ? (
+            <span className="text-amber-600 font-medium">
+              Only {product.inventory.retail} left in stock
+            </span>
+          ) : (
+            <span className="text-green-700">In Stock</span>
+          )}
+        </div>
+      )}
+
+      {/* Variant selector */}
+      {hasVariants && (
+        <div className="flex flex-wrap gap-2">
+          {product.variants!.map((v, i) => (
+            <button
+              key={v.name}
+              onClick={() => setSelectedVariant(i)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                i === selectedVariant
+                  ? "border-forest bg-forest/10 text-forest"
+                  : "border-muted/30 text-forest/60 hover:border-forest/40"
+              } ${v.inventory === 0 ? "opacity-50 line-through" : ""}`}
+              disabled={v.inventory === 0}
+            >
+              {v.name} — {formatINR(v.price_inr)}
+              {v.inventory === 0 && <span className="ml-1 text-red-500 no-underline">(sold out)</span>}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Price */}
       <div className="bg-cream rounded-2xl p-4 border border-muted/20">
         <div className="flex items-baseline gap-3">
           <span className="text-3xl font-bold text-forest">
-            {formatINR(product.price.inr)}
+            {formatINR(activePrice)}
           </span>
-          {product.price.usd && (
+          {product.price.usd && !hasVariants && (
             <span className="text-sm text-muted">≈ ${product.price.usd}</span>
           )}
         </div>

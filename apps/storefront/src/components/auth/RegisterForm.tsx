@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { authApi } from "@/lib/api";
@@ -166,13 +167,13 @@ export function RegisterForm() {
 
       <p className="text-xs text-center text-forest/40">
         By creating an account you agree to our{" "}
-        <a href="/terms" className="underline hover:text-forest">
-          Terms of Service
-        </a>{" "}
+        <Link href="/returns" className="underline hover:text-forest">
+          Return &amp; Refund Policy
+        </Link>{" "}
         and{" "}
-        <a href="/privacy" className="underline hover:text-forest">
-          Privacy Policy
-        </a>
+        <Link href="/shipping" className="underline hover:text-forest">
+          Shipping Policy
+        </Link>
         .
       </p>
     </form>

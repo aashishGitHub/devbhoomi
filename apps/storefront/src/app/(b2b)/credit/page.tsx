@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Credit Account" };
 
 export default function CreditPage() {
     return (
-        <div className="min-h-screen bg-cream py-12 px-4">
+        <div className="min-h-screen bg-cream pt-20 pb-12 px-4">
             <div className="section mx-auto max-w-3xl">
                 <div className="flex items-center gap-3 mb-8">
                     <div className="bg-stone/10 p-2.5 rounded-xl">

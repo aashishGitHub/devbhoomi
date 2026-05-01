@@ -79,6 +79,81 @@ func (r *UserRepository) GetByID(ctx context.Context, id string) (*model.User, e
 	return u, nil
 }
 
+func (r *UserRepository) ListAll(ctx context.Context, page, perPage int) ([]model.User, int, error) {
+	if page < 1 {
+		page = 1
+	}
+	if perPage < 1 {
+		perPage = 20
+	}
+	offset := (page - 1) * perPage
+
+	var total int
+	if err := r.db.QueryRow(ctx, `SELECT COUNT(*) FROM users`).Scan(&total); err != nil {
+		return nil, 0, err
+	}
+
+	rows, err := r.db.Query(ctx,
+		`SELECT id, name, email, role, phone, created_at, updated_at
+		 FROM users ORDER BY created_at DESC LIMIT $1 OFFSET $2`, perPage, offset)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var users []model.User
+	for rows.Next() {
+		u := model.User{}
+		var phone *string
+		if err := rows.Scan(&u.ID, &u.Name, &u.Email, &u.Role, &phone, &u.CreatedAt, &u.UpdatedAt); err != nil {
+			return nil, 0, err
+		}
+		if phone != nil {
+			u.Phone = *phone
+		}
+		users = append(users, u)
+	}
+	return users, total, nil
+}
+
+func (r *UserRepository) UpdateWholesalerApproval(ctx context.Context, userID, status string) error {
+	_, err := r.db.Exec(ctx,
+		`UPDATE wholesaler_profiles SET approval_status=$1 WHERE user_id=$2`, status, userID)
+	return err
+}
+
+func (r *UserRepository) ListWholesalers(ctx context.Context) ([]model.WholesalerProfile, error) {
+	rows, err := r.db.Query(ctx,
+		`SELECT wp.user_id, wp.company_name, wp.gstin, wp.tier, wp.credit_limit_inr,
+		        wp.credit_used_inr, wp.credit_terms, wp.tax_exempt, wp.approval_status, wp.created_at
+		 FROM wholesaler_profiles wp ORDER BY wp.created_at DESC`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var profiles []model.WholesalerProfile
+	for rows.Next() {
+		p := model.WholesalerProfile{}
+		var companyName, gstin, creditTerms *string
+		if err := rows.Scan(&p.UserID, &companyName, &gstin, &p.Tier, &p.CreditLimitINR,
+			&p.CreditUsedINR, &creditTerms, &p.TaxExempt, &p.ApprovalStatus, &p.CreatedAt); err != nil {
+			return nil, err
+		}
+		if companyName != nil {
+			p.CompanyName = *companyName
+		}
+		if gstin != nil {
+			p.GSTIN = *gstin
+		}
+		if creditTerms != nil {
+			p.CreditTerms = *creditTerms
+		}
+		profiles = append(profiles, p)
+	}
+	return profiles, nil
+}
+
 func (r *UserRepository) CreateWholesalerProfile(ctx context.Context, p *model.WholesalerProfile) error {
 	_, err := r.db.Exec(ctx,
 		`INSERT INTO wholesaler_profiles (user_id, company_name, gstin, tier, approval_status)

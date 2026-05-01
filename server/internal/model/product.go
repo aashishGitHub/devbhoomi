@@ -30,6 +30,14 @@ type Traceability struct {
 	CertificationID *string `json:"certification_id,omitempty"`
 }
 
+type ProductVariant struct {
+	Name      string  `json:"name"`
+	PriceINR  float64 `json:"price_inr"`
+	PriceUSD  float64 `json:"price_usd,omitempty"`
+	Inventory int     `json:"inventory"`
+	SKU       string  `json:"sku,omitempty"`
+}
+
 type ProductSEO struct {
 	Title       *string  `json:"title,omitempty"`
 	Description *string  `json:"description,omitempty"`
@@ -50,6 +58,7 @@ type Product struct {
 	Subcategory          string                 `json:"subcategory"`
 	Description          string                 `json:"description"`
 	Price                map[string]float64     `json:"price"`
+	Variants             []ProductVariant       `json:"variants,omitempty"`
 	B2BPricing           []B2BPricingTier       `json:"b2b_pricing,omitempty"`
 	Traceability         *Traceability          `json:"traceability,omitempty"`
 	ScientificAttributes map[string]interface{} `json:"scientific_attributes,omitempty"`

@@ -73,7 +73,7 @@ export default function QuickOrderPage() {
     };
 
     return (
-        <div className="min-h-screen bg-cream py-10 px-4">
+        <div className="min-h-screen bg-cream pt-20 pb-10 px-4">
             <div className="section mx-auto">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-forest font-display">Quick Order</h1>

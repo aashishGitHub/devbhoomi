@@ -46,7 +46,7 @@ export default function WholesaleApplyPage() {
 
     if (submitted) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-cream px-4">
+            <div className="min-h-screen flex items-center justify-center bg-cream pt-20 px-4">
                 <div className="text-center max-w-sm">
                     <div className="bg-green-100 p-4 rounded-full w-fit mx-auto mb-4">
                         <CheckCircle className="h-10 w-10 text-green-600" />
@@ -64,7 +64,7 @@ export default function WholesaleApplyPage() {
     }
 
     return (
-        <div className="min-h-screen bg-cream py-12 px-4">
+        <div className="min-h-screen bg-cream pt-20 pb-12 px-4">
             <div className="max-w-2xl mx-auto">
                 <div className="flex items-center gap-3 mb-8">
                     <div className="bg-forest/10 p-2.5 rounded-xl">

@@ -46,6 +46,10 @@ func main() {
 	}
 	defer pool.Close()
 
+	if err := database.RunMigrations(ctx, pool); err != nil {
+		log.Fatalf("migrations: %v", err)
+	}
+
 	hash, err := bcrypt.GenerateFromPassword([]byte(*password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Fatalf("hash: %v", err)
