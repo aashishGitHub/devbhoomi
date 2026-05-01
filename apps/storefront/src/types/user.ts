@@ -4,6 +4,11 @@ export interface User {
     email: string;
     role: "customer" | "wholesaler" | "admin";
     phone?: string;
+    address_line1?: string;
+    address_line2?: string;
+    address_city?: string;
+    address_state?: string;
+    address_pincode?: string;
     created_at: string;
 }
 
@@ -24,4 +29,14 @@ export interface RegisterPayload {
     password: string;
     phone?: string;
     account_type: "customer" | "wholesaler";
+}
+
+export interface UpdateProfilePayload {
+    name?: string;
+    phone?: string;
+    address_line1?: string;
+    address_line2?: string;
+    address_city?: string;
+    address_state?: string;
+    address_pincode?: string;
 }

@@ -297,6 +297,15 @@ func (r *ProductRepository) Update(ctx context.Context, p *model.Product) error 
 		images = []string{}
 	}
 
+	// Auto-set status based on inventory — prevents "active" with 0 stock
+	status := p.Status
+	if inventoryRetail <= 0 && inventoryWholesale <= 0 {
+		status = model.StatusOutOfStock
+	} else if status == model.StatusOutOfStock {
+		// If inventory was restocked, auto-set back to active
+		status = model.StatusActive
+	}
+
 	_, err := r.db.Exec(ctx, `
 		UPDATE products SET
 			name=$1, slug=$2, category=$3, subcategory=$4, description=$5,
@@ -307,7 +316,7 @@ func (r *ProductRepository) Update(ctx context.Context, p *model.Product) error 
 		p.Name, p.Slug, p.Category, p.Subcategory, p.Description,
 		priceINR, priceUSD, b2bJSON, traceJSON, sciJSON,
 		images, seoJSON, inventoryRetail, inventoryWholesale, moqWholesale,
-		p.WeightKG, dimsJSON, p.Status, variantsJSON,
+		p.WeightKG, dimsJSON, status, variantsJSON,
 		p.ID,
 	)
 	return err

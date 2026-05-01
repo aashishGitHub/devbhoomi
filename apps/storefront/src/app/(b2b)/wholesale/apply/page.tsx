@@ -6,8 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2, Building2, CheckCircle } from "lucide-react";
 
-export const dynamic = "force-dynamic";
-
 const applySchema = z.object({
     companyName: z.string().min(2, "Company name required"),
     gstin: z

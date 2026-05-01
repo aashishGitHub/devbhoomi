@@ -22,9 +22,8 @@ async function getProduct(slug: string): Promise<Product | null> {
 }
 
 /**
- * generateStaticParams — required for `output: 'export'` (Cloudflare build).
- * In mock mode: pre-renders all 9 mock product pages at build time.
- * In real-API mode: returns [] so Next.js falls back to on-demand ISR.
+ * generateStaticParams — pre-renders mock product pages for static export builds.
+ * When USE_MOCK=false (default), returns [] so Next.js renders on-demand.
  */
 export async function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
@@ -54,8 +53,8 @@ export async function generateMetadata({
   };
 }
 
-// SSG + ISR — 60s revalidation
-export const revalidate = 60;
+// Always render dynamically for fresh product data (good for SEO + real backend)
+export const dynamic = "force-dynamic";
 
 export default async function ProductDetailPage({
   params,

@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag, Search, User, Menu, X } from "lucide-react";
+import { ShoppingBag, Search, User, Menu, X, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
+import { useAuthStore } from "@/store/authStore";
+import { clearAuthCookie } from "@/lib/jwt";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -25,12 +27,14 @@ const LIGHT_BG_PAGES = [
   "/credit",
   "/quick-order",
   "/wholesale/apply",
+  "/account",
 ];
 
 export function Header() {
   const pathname = usePathname();
   const itemCount = useCartStore((s) => s.itemCount());
   const openCart = useCartStore((s) => s.openCart);
+  const { user, isAuthenticated, clearAuth } = useAuthStore();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -110,16 +114,37 @@ export function Header() {
               <Search className="w-5 h-5" aria-hidden="true" />
             </Link>
 
-            <Link
-              href="/login"
-              className={cn(
-                "hidden sm:flex p-2 rounded-full transition-all duration-200",
-                isDark ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
-              )}
-              aria-label="Account"
-            >
-              <User className="w-5 h-5" aria-hidden="true" />
-            </Link>
+            {isAuthenticated && user ? (
+              <Link
+                href="/account"
+                className={cn(
+                  "hidden sm:flex items-center gap-2 p-1.5 pr-3 rounded-full transition-all duration-200",
+                  isDark ? "hover:bg-snow/10" : "hover:bg-snow/10"
+                )}
+                aria-label="My Account"
+              >
+                <span className="w-7 h-7 rounded-full bg-forest text-snow flex items-center justify-center text-xs font-bold">
+                  {user.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)}
+                </span>
+                <span className={cn(
+                  "text-sm font-medium max-w-[80px] truncate",
+                  isDark ? "text-snow/70" : "text-snow/80"
+                )}>
+                  {user.name.split(" ")[0]}
+                </span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className={cn(
+                  "hidden sm:flex p-2 rounded-full transition-all duration-200",
+                  isDark ? "text-snow/70 hover:text-snow hover:bg-snow/10" : "text-snow/80 hover:text-snow hover:bg-snow/10"
+                )}
+                aria-label="Sign In"
+              >
+                <User className="w-5 h-5" aria-hidden="true" />
+              </Link>
+            )}
 
             <button
               onClick={openCart}
@@ -182,14 +207,41 @@ export function Header() {
                 </Link>
               ))}
               <div className="border-t border-snow/10 mt-2 pt-3">
-                <Link
-                  href="/login"
-                  onClick={() => setMobileOpen(false)}
-                  className="px-4 py-3 rounded-xl text-sm font-medium text-snow/70 hover:text-snow hover:bg-snow/10 transition-colors flex items-center gap-2"
-                >
-                  <User className="w-4 h-4" />
-                  Sign In / Register
-                </Link>
+                {isAuthenticated && user ? (
+                  <>
+                    <Link
+                      href="/account"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-3 rounded-xl text-sm font-medium text-snow/70 hover:text-snow hover:bg-snow/10 transition-colors flex items-center gap-2"
+                    >
+                      <span className="w-6 h-6 rounded-full bg-forest text-snow flex items-center justify-center text-xs font-bold">
+                        {user.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)}
+                      </span>
+                      {user.name.split(" ")[0]}
+                    </Link>
+                    <button
+                      onClick={() => {
+                        clearAuth();
+                        clearAuthCookie();
+                        setMobileOpen(false);
+                        window.location.href = "/login";
+                      }}
+                      className="w-full px-4 py-3 rounded-xl text-sm font-medium text-snow/50 hover:text-rust hover:bg-snow/5 transition-colors flex items-center gap-2"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="px-4 py-3 rounded-xl text-sm font-medium text-snow/70 hover:text-snow hover:bg-snow/10 transition-colors flex items-center gap-2"
+                  >
+                    <User className="w-4 h-4" />
+                    Sign In / Register
+                  </Link>
+                )}
               </div>
             </div>
           </motion.div>

@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 const B2B_ROUTES = ["/wholesale", "/quick-order", "/credit"];
 const AUTH_ROUTES = ["/login", "/register"];
+const PROTECTED_ROUTES = ["/account"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -10,13 +11,21 @@ export function middleware(request: NextRequest) {
 
   const isB2B = B2B_ROUTES.some((r) => pathname.startsWith(r));
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname.startsWith(r));
+  const isProtected = PROTECTED_ROUTES.some((r) => pathname.startsWith(r));
 
   // Redirect already-authenticated users away from login/register
   if (isAuthRoute && token) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (!isB2B) {
+  // Protected routes — redirect unauthenticated users to login
+  if (isProtected && !token) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  if (!isB2B && !isProtected) {
     return NextResponse.next();
   }
 
@@ -38,6 +47,7 @@ export const config = {
     "/credit/:path*",
     "/login",
     "/register",
+    "/account/:path*",
   ],
   runtime: "nodejs",
 };

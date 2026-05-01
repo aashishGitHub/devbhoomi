@@ -227,7 +227,14 @@ func (h *AdminHandler) UpdateProduct(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to update product"})
 		return
 	}
-	c.JSON(http.StatusOK, existing)
+
+	// Re-read to get the actual status (repo auto-sets out_of_stock when inventory=0)
+	updated, err := h.productSvc.GetByID(c.Request.Context(), existing.ID)
+	if err != nil {
+		c.JSON(http.StatusOK, existing) // fallback to in-memory state
+		return
+	}
+	c.JSON(http.StatusOK, updated)
 }
 
 func (h *AdminHandler) DeleteProduct(c *gin.Context) {

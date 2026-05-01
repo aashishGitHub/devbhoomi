@@ -11,14 +11,19 @@ const (
 )
 
 type User struct {
-	ID           string    `json:"id"`
-	Name         string    `json:"name"`
-	Email        string    `json:"email"`
-	PasswordHash string    `json:"-"`
-	Role         Role      `json:"role"`
-	Phone        string    `json:"phone,omitempty"`
-	CreatedAt    time.Time `json:"created_at"`
-	UpdatedAt    time.Time `json:"updated_at"`
+	ID            string    `json:"id"`
+	Name          string    `json:"name"`
+	Email         string    `json:"email"`
+	PasswordHash  string    `json:"-"`
+	Role          Role      `json:"role"`
+	Phone         string    `json:"phone,omitempty"`
+	AddressLine1  string    `json:"address_line1,omitempty"`
+	AddressLine2  string    `json:"address_line2,omitempty"`
+	AddressCity   string    `json:"address_city,omitempty"`
+	AddressState  string    `json:"address_state,omitempty"`
+	AddressPincode string  `json:"address_pincode,omitempty"`
+	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
 }
 
 type WholesalerProfile struct {

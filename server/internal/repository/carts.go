@@ -177,6 +177,11 @@ func (r *CartRepository) MergeGuestCart(ctx context.Context, sessionID, userID s
 	return nil
 }
 
+func (r *CartRepository) ClearCart(ctx context.Context, cartID string) error {
+	_, err := r.db.Exec(ctx, `DELETE FROM cart_items WHERE cart_id = $1`, cartID)
+	return err
+}
+
 func (r *CartRepository) loadItems(ctx context.Context, cart *model.Cart) (*model.Cart, error) {
 	rows, err := r.db.Query(ctx,
 		`SELECT id, cart_id, product_id, name, slug, image, price_inr, quantity

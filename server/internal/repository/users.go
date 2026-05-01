@@ -41,41 +41,55 @@ func (r *UserRepository) Create(ctx context.Context, u *model.User) error {
 
 func (r *UserRepository) GetByEmail(ctx context.Context, email string) (*model.User, error) {
 	u := &model.User{}
-	var phone *string
+	var phone, addr1, addr2, city, state, pincode *string
 	err := r.db.QueryRow(ctx,
-		`SELECT id, name, email, password_hash, role, phone, created_at, updated_at
+		`SELECT id, name, email, password_hash, role, phone,
+		        address_line1, address_line2, address_city, address_state, address_pincode,
+		        created_at, updated_at
 		 FROM users WHERE email = $1`,
 		email,
-	).Scan(&u.ID, &u.Name, &u.Email, &u.PasswordHash, &u.Role, &phone, &u.CreatedAt, &u.UpdatedAt)
+	).Scan(&u.ID, &u.Name, &u.Email, &u.PasswordHash, &u.Role, &phone,
+		&addr1, &addr2, &city, &state, &pincode,
+		&u.CreatedAt, &u.UpdatedAt)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, ErrNotFound
 		}
 		return nil, fmt.Errorf("get user by email: %w", err)
 	}
-	if phone != nil {
-		u.Phone = *phone
-	}
+	assignStr(&u.Phone, phone)
+	assignStr(&u.AddressLine1, addr1)
+	assignStr(&u.AddressLine2, addr2)
+	assignStr(&u.AddressCity, city)
+	assignStr(&u.AddressState, state)
+	assignStr(&u.AddressPincode, pincode)
 	return u, nil
 }
 
 func (r *UserRepository) GetByID(ctx context.Context, id string) (*model.User, error) {
 	u := &model.User{}
-	var phone *string
+	var phone, addr1, addr2, city, state, pincode *string
 	err := r.db.QueryRow(ctx,
-		`SELECT id, name, email, password_hash, role, phone, created_at, updated_at
+		`SELECT id, name, email, password_hash, role, phone,
+		        address_line1, address_line2, address_city, address_state, address_pincode,
+		        created_at, updated_at
 		 FROM users WHERE id = $1`,
 		id,
-	).Scan(&u.ID, &u.Name, &u.Email, &u.PasswordHash, &u.Role, &phone, &u.CreatedAt, &u.UpdatedAt)
+	).Scan(&u.ID, &u.Name, &u.Email, &u.PasswordHash, &u.Role, &phone,
+		&addr1, &addr2, &city, &state, &pincode,
+		&u.CreatedAt, &u.UpdatedAt)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, ErrNotFound
 		}
 		return nil, fmt.Errorf("get user by id: %w", err)
 	}
-	if phone != nil {
-		u.Phone = *phone
-	}
+	assignStr(&u.Phone, phone)
+	assignStr(&u.AddressLine1, addr1)
+	assignStr(&u.AddressLine2, addr2)
+	assignStr(&u.AddressCity, city)
+	assignStr(&u.AddressState, state)
+	assignStr(&u.AddressPincode, pincode)
 	return u, nil
 }
 
@@ -94,7 +108,9 @@ func (r *UserRepository) ListAll(ctx context.Context, page, perPage int) ([]mode
 	}
 
 	rows, err := r.db.Query(ctx,
-		`SELECT id, name, email, role, phone, created_at, updated_at
+		`SELECT id, name, email, role, phone,
+		        address_line1, address_line2, address_city, address_state, address_pincode,
+		        created_at, updated_at
 		 FROM users ORDER BY created_at DESC LIMIT $1 OFFSET $2`, perPage, offset)
 	if err != nil {
 		return nil, 0, err
@@ -104,13 +120,18 @@ func (r *UserRepository) ListAll(ctx context.Context, page, perPage int) ([]mode
 	var users []model.User
 	for rows.Next() {
 		u := model.User{}
-		var phone *string
-		if err := rows.Scan(&u.ID, &u.Name, &u.Email, &u.Role, &phone, &u.CreatedAt, &u.UpdatedAt); err != nil {
+		var phone, addr1, addr2, city, state, pincode *string
+		if err := rows.Scan(&u.ID, &u.Name, &u.Email, &u.Role, &phone,
+			&addr1, &addr2, &city, &state, &pincode,
+			&u.CreatedAt, &u.UpdatedAt); err != nil {
 			return nil, 0, err
 		}
-		if phone != nil {
-			u.Phone = *phone
-		}
+		assignStr(&u.Phone, phone)
+		assignStr(&u.AddressLine1, addr1)
+		assignStr(&u.AddressLine2, addr2)
+		assignStr(&u.AddressCity, city)
+		assignStr(&u.AddressState, state)
+		assignStr(&u.AddressPincode, pincode)
 		users = append(users, u)
 	}
 	return users, total, nil
@@ -236,6 +257,31 @@ func (r *UserRepository) DeleteAllRefreshTokens(ctx context.Context, userID stri
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────
+
+func (r *UserRepository) UpdateProfile(ctx context.Context, u *model.User) error {
+	_, err := r.db.Exec(ctx,
+		`UPDATE users SET
+			name=$1, phone=$2,
+			address_line1=$3, address_line2=$4,
+			address_city=$5, address_state=$6, address_pincode=$7,
+			updated_at=NOW()
+		 WHERE id=$8`,
+		u.Name, nullStr(u.Phone),
+		nullStr(u.AddressLine1), nullStr(u.AddressLine2),
+		nullStr(u.AddressCity), nullStr(u.AddressState), nullStr(u.AddressPincode),
+		u.ID,
+	)
+	if err != nil {
+		return fmt.Errorf("update profile: %w", err)
+	}
+	return nil
+}
+
+func assignStr(dst *string, src *string) {
+	if src != nil {
+		*dst = *src
+	}
+}
 
 func nullStr(s string) *string {
 	if s == "" {

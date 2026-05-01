@@ -1,6 +1,7 @@
 import type { ProductListResponse, Product, ProductSearchParams } from "@/types/product";
-import type { LoginPayload, RegisterPayload, AuthTokens } from "@/types/user";
+import type { LoginPayload, RegisterPayload, AuthTokens, User, UpdateProfilePayload } from "@/types/user";
 import type { Cart, CartItem } from "@/types/cart";
+import type { Order, OrderListResponse, PlaceOrderPayload } from "@/types/order";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
 
@@ -114,6 +115,42 @@ export const cartApi = {
         return request(`/cart/items/${id}`, {
             method: "DELETE",
             headers: { ...sessionHeaders(sessionId), ...(token ? authHeaders(token) : {}) },
+        });
+    },
+};
+
+// ── User (authenticated) ─────────────────────────────────────────────────────
+
+export const userApi = {
+    getProfile(token: string): Promise<User> {
+        return request("/auth/me", {
+            headers: authHeaders(token),
+        });
+    },
+
+    updateProfile(token: string, payload: UpdateProfilePayload): Promise<User> {
+        return request("/auth/me", {
+            method: "PUT",
+            headers: authHeaders(token),
+            body: JSON.stringify(payload),
+        });
+    },
+};
+
+// ── Orders ────────────────────────────────────────────────────────────────────
+
+export const ordersApi = {
+    getMyOrders(token: string, page = 1, perPage = 10): Promise<OrderListResponse> {
+        return request(`/orders/mine?page=${page}&per_page=${perPage}`, {
+            headers: authHeaders(token),
+        });
+    },
+
+    placeOrder(token: string | undefined, payload: PlaceOrderPayload): Promise<Order> {
+        return request("/orders", {
+            method: "POST",
+            headers: token ? authHeaders(token) : {},
+            body: JSON.stringify(payload),
         });
     },
 };

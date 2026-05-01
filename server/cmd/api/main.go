@@ -58,6 +58,7 @@ func main() {
 	cartH    := handler.NewCartHandler(cartSvc)
 	b2bH     := handler.NewB2BHandler(productSvc, cartSvc)
 	adminH   := handler.NewAdminHandler(productSvc, orderRepo, userRepo)
+	userH    := handler.NewUserHandler(orderRepo, userRepo, cartRepo)
 
 	// ── router ────────────────────────────────────────────────────────────────
 	if os.Getenv("GIN_MODE") == "" {
@@ -116,6 +117,16 @@ func main() {
 	v1.POST("/cart/merge", reqAuth, func(c *gin.Context) {
 		b2bH.MergeCart(c)
 	})
+
+	// User routes (require auth)
+	v1.GET("/auth/me", reqAuth, userH.GetProfile)
+	v1.PUT("/auth/me", reqAuth, userH.UpdateProfile)
+	v1.GET("/orders/mine", reqAuth, userH.GetMyOrders)
+
+	// Place order — auth optional (guests can order too)
+	// Authenticated users: items loaded from server-side cart
+	// Guest users: items must be provided in request body
+	v1.POST("/orders", optAuth, userH.PlaceOrder)
 
 	// Admin routes (require auth + admin role)
 	admin := v1.Group("/admin", reqAuth, middleware.RequireRole("admin"))

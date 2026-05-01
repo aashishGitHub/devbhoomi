@@ -28,8 +28,15 @@ export function ProductGrid() {
         page: searchParams.get("page") ?? undefined,
       })
       .then((data) => {
-        setProducts(data.items);
-        setTotal(data.total);
+        // Only show products that are available (have stock or no inventory tracking)
+        const available = data.items.filter(
+          (p) =>
+            p.status !== "out_of_stock" &&
+            p.status !== "inactive" &&
+            (p.inventory?.retail === undefined || p.inventory?.retail > 0)
+        );
+        setProducts(available);
+        setTotal(available.length);
         setLoading(false);
       })
       .catch(() => {

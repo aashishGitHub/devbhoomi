@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export const dynamic = "force-dynamic";
-
 export default function CartPage() {
   return (
     <div className="section pt-20 pb-8">
