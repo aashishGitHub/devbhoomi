@@ -6,6 +6,7 @@
         "dev": "next dev --port 3000",
         "build": "next build",
         "build:static": "NEXT_PUBLIC_USE_MOCK=true next build",
+        "deploy:static": "npm run build:static && npx wrangler pages deploy out --project-name=devtatva",
         "start": "next start --port 3000",
         "lint": "next lint",
         "typecheck": "tsc --noEmit"

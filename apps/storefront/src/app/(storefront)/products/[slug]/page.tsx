@@ -53,9 +53,6 @@ export async function generateMetadata({
   };
 }
 
-// Always render dynamically for fresh product data (good for SEO + real backend)
-export const dynamic = "force-dynamic";
-
 export default async function ProductDetailPage({
   params,
 }: ProductDetailPageProps) {

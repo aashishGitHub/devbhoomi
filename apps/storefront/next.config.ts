@@ -4,8 +4,6 @@ import withSerwist from "@serwist/next";
 const isMockBuild = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 
 const nextConfig: NextConfig = {
-    // Static export for Cloudflare Pages (mock/demo builds).
-    // Remove this line when deploying to Vercel with the real Go backend.
     ...(isMockBuild ? { output: "export" } : {}),
 
     images: {
